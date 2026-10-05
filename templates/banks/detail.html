@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ bank.name }} — Banku.ua</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">🏦</span>
+        <span class="logo-text">Banku.ua</span>
+      </div>
+      <p class="header-subtitle">Швидкий перехід до вашого банку</p>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+
+      <a href="{% url 'index' %}" class="back-link">← Назад до всіх банків</a>
+
+      <div class="detail-card">
+
+        <div class="detail-header">
+          <div class="detail-icon">{{ bank.icon }}</div>
+          <div>
+            <h1 class="detail-name">{{ bank.name }}</h1>
+            {% if bank.description %}
+            <p class="detail-desc">{{ bank.description }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if promo_paragraphs %}
+        <div class="detail-promo">
+          {% for para in promo_paragraphs %}
+          <p class="promo-paragraph">{{ para }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <a href="{{ bank.url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="detail-btn">
+          Перейти до {{ bank.name }} →
+        </a>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Banku.ua — всі посилання відкриваються на офіційних сайтах банків</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

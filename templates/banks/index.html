@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Банки України</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">🏦</span>
+        <span class="logo-text">Banku.ua</span>
+      </div>
+      <p class="header-subtitle">Швидкий перехід до вашого банку</p>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+
+      <section class="hero">
+        <h1 class="hero-title">Обери свій банк</h1>
+        <p class="hero-desc">Всі популярні банки України в одному місці. Клікни — і переходь одразу до потрібного сервісу.</p>
+      </section>
+
+      <section class="banks-grid">
+        {% for bank in banks %}
+        <a href="{% url 'bank_detail' bank.pk %}"
+           class="bank-card"
+           aria-label="{{ bank.name }}">
+          <div class="bank-icon">{{ bank.icon }}</div>
+          <div class="bank-info">
+            <span class="bank-name">{{ bank.name }}</span>
+            {% if bank.description %}
+            <span class="bank-desc">{{ bank.description }}</span>
+            {% else %}
+            <span class="bank-url">{{ bank.display_url }}</span>
+            {% endif %}
+          </div>
+          <span class="bank-arrow" aria-hidden="true">→</span>
+        </a>
+        {% empty %}
+        <p class="no-banks">Банки ще не додані. Зайди в <a href="/admin/">адмінку</a> і додай.</p>
+        {% endfor %}
+      </section>
+
+      <section class="cta">
+        <p>Не знайшов свій банк? Напиши нам — додамо.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Banku.ua — всі посилання відкриваються на офіційних сайтах банків</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
